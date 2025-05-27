@@ -18,9 +18,11 @@
         pkgs = import nixpkgs { inherit system; };
         python = pkgs.python3.withPackages (
           ps: with ps; [
+            pjsua2
             black
             flake8
             isort
+            python-dotenv
           ]
         );
       in
@@ -30,16 +32,7 @@
             packages = [
               pkgs.pyright
               python
-              pkgs.portaudio
             ];
-
-            shellHook = ''
-              if [ ! -e venv ]; then
-                python -m venv venv
-              fi
-              source venv/bin/activate
-              pip install -r requirements.txt
-            '';
           };
         };
       }
